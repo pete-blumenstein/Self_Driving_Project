@@ -10,12 +10,12 @@ from keras import backend as K
 
 # Parameters to tune for our project
 img_width, img_height = 224, 224
-train_data_dir = 'v_data/train'
+train_data_dir = 'v_data/train'			# How to make this directory the github directory??
 validation_data_dir = 'v_data/test'
-nb_train_samples =400
-nb_validation_samples = 100
+nb_train_samples = 7573
+nb_validation_samples = 2631
 epochs = 10
-batch_size = 16
+batch_size = 30
 
 if K.image_data_format() == 'channels_first':
 	input_shape = (3, img_width, img_height)
@@ -30,12 +30,12 @@ model.add(Conv2D(32, (2, 2), input_shape=input_shape))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 
-model.add(Conv2D(32, (2, 2)))
-model.add(Activation('relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
-
 model.add(Conv2D(64, (2, 2)))
 model.add(Activation('relu'))
+#model.add(MaxPooling2D(pool_size=(2, 2)))
+
+model.add(Conv2D(64, (2, 2)))
+#model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 
 model.add(Flatten())
@@ -45,7 +45,7 @@ model.add(Dropout(0.5)) # avoids overfitting
 model.add(Dense(1)) # output layer - single neuron 
 model.add(Activation('sigmoid'))
 
-
+# Might want model.fit instead
 model.compile(loss='binary_crossentropy',
 			optimizer='rmsprop',
 			metrics=['accuracy'])
